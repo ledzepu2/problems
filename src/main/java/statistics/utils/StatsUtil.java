@@ -1,4 +1,4 @@
-package utils;
+package statistics.utils;
 
 import java.util.Arrays;
 

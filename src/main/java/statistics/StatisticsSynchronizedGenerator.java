@@ -1,6 +1,6 @@
 package statistics;
 
-import utils.StatsUtil;
+import statistics.utils.StatsUtil;
 
 /**
  * Created by menona on 12/11/15.

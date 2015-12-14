@@ -1,4 +1,4 @@
-package domain;
+package fileSearcher.event;
 
 import java.nio.file.Path;
 

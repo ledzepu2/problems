@@ -1,4 +1,4 @@
-package ringbuffer;
+package statistics.ringbuffer;
 
 /**
  * Created by menona on 12/13/15.

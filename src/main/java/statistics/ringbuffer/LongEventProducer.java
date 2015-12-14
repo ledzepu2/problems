@@ -1,4 +1,4 @@
-package ringbuffer;
+package statistics.ringbuffer;
 
 import com.lmax.disruptor.RingBuffer;
 

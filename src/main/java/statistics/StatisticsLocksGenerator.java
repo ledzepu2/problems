@@ -1,6 +1,6 @@
 package statistics;
 
-import utils.StatsUtil;
+import statistics.utils.StatsUtil;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
