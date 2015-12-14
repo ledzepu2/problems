@@ -1,9 +1,9 @@
 package fileSearcher.processor;
 
+import config.Constants;
+
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 /**
@@ -11,19 +11,26 @@ import java.nio.file.attribute.BasicFileAttributes;
  */
 public class FileSearcher implements FileVisitor<Path> {
 
-    private static final String TAB = "    ";
-    private static final int TAB_SIZE = TAB.length();
+
     private  final Path searchPath;
+    private  final Path destPath;
 
 
-
-    public FileSearcher(Path searchPath) {
+    public FileSearcher(Path searchPath,Path destPath) {
 
         this.searchPath = searchPath;
+        this.destPath = destPath;
     }
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+
+        /*Path truncatedSourceDirPath = dir.subpath(Constants.PATH_IGNORE,dir.getNameCount());
+        Path copyPathDir = destPath.resolve(truncatedSourceDirPath);
+        if(Files.notExists(copyPathDir))
+        {
+            Files.createDirectories(copyPathDir);
+        }*/
 
         return FileVisitResult.CONTINUE;
     }
@@ -40,21 +47,42 @@ public class FileSearcher implements FileVisitor<Path> {
 
      if (file.getFileName().equals(searchPath.getFileName()))
      {
-         System.out.println("Found match for "+searchPath+" in path"+file);
-         return FileVisitResult.TERMINATE;
+         return processCopy(file);
      }
         return FileVisitResult.CONTINUE;
 
-
-
     }
+
+
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
         return FileVisitResult.CONTINUE;
     }
 
-    public void printSummary() {
+    private FileVisitResult processCopy(Path file)  {
+        Path truncatedSourcePath = file.subpath(Constants.PATH_IGNORE,file.getNameCount());
+        Path copyPath = destPath.resolve(truncatedSourcePath);
+       // System.out.println("Location to copy parent"+copyPath.getParent());
+        try {
+
+                if (!Files.exists(copyPath.getParent()))
+                {
+                    Files.createDirectories(copyPath.getParent());
+                    System.out.println("Directory "+copyPath.getParent()+" not present ..Creating");
+                }
+            Files.copy(file,copyPath,StandardCopyOption.REPLACE_EXISTING);
+        } catch (FileAlreadyExistsException e) {
+            System.out.println("File "+file+" copy process exception");
+        }
+        catch (NoSuchFileException e2){
+            System.out.println("File "+file+" copy process exception");
+        }
+        catch (IOException e1){
+            e1.printStackTrace();
+        }
+        return FileVisitResult.TERMINATE;
     }
+
 
 }

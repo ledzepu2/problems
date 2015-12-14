@@ -20,7 +20,7 @@ import static reactor.Environment.get;
 @ComponentScan({"fileSearcher"})
 @EnableReactor
 @EnableScheduling
-public class FileSearcherConfig {
+public class FileSearcherConfig  {
 
     static {
         Environment.initializeIfEmpty()
@@ -39,9 +39,15 @@ public class FileSearcherConfig {
         return LoggerFactory.getLogger(FileSearcherConfig.class);
     }
 
-    public static void main(String... args) {
+    public static void main(String... args) throws InterruptedException {
+
         SpringApplication.run(FileSearcherConfig.class, args);
+
     }
+
+
+
+
 
 
 }

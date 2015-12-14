@@ -3,11 +3,10 @@ package fileSearcher.consumer;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 /**
  * Created by menona on 12/13/15.
  */
-@Component
+@Service
 public class CopyConsumer {
 
     @Autowired
@@ -34,11 +33,8 @@ public class CopyConsumer {
     @Autowired
     private Logger logger;
 
+    public void startFileProcessing() throws InterruptedException {
 
-  // @Scheduled(fixedDelay = Constants.FIXED_RATE_DURATION)
-    @PostConstruct
-    public void startFileProcessing()
-    {
         scan_directory = Paths.get(scanLocation);
         logger.info("Loader service processing files  from  ..." + scan_directory.toString() + " at " + LocalDateTime.now());
 
@@ -52,6 +48,8 @@ public class CopyConsumer {
         }
 
     }
+
+
 
 
 

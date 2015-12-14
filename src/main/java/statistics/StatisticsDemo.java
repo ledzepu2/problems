@@ -14,7 +14,7 @@ public class StatisticsDemo {
     public static void main(String[] args) {
         //multiThreadedNaive(5000,50,150);
         multiThreadedSynchronized(500000,50,150);
-       multiThreadedLocks(500000,50,150);
+        multiThreadedLocks(500000,50,150);
         multiThreadedLocks(500000,50,150);
         multiThreadedLocks(500000,50,150);
         multiThreadedLocks(500000,50,150);

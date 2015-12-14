@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 /**
  * Created by menona on 12/13/15.
  */
+
 @Consumer
 public class SearchInitiator {
 
@@ -38,11 +39,11 @@ public class SearchInitiator {
     {
         Path inputPath = filePathEvent.getData();
         Path truncatedPath = inputPath.subpath(Constants.PATH_IGNORE,inputPath.getNameCount());
-        Path searchPath = Paths.get("/src").resolve(truncatedPath);
+        Path searchPath = Paths.get("src").resolve(truncatedPath);
         Path sourcePath = Paths.get(sourceLocation);
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(sourcePath)) {
             for (Path path : stream) {
-             log.info("looking for pattern"+inputPath+" in "+path);
+            log.info("looking for pattern"+inputPath+" in "+path);
              eventBus.notify("model.folder.traverse", Event.wrap(prepareFileSearchEvent(sourcePath,searchPath)));
     }
         } catch (IOException e) {
